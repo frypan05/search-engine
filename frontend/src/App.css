@@ -36,3 +36,10 @@
     transform: rotate(360deg);
   }
 }
+body {
+  margin: 0;
+  background-color: #1a1a2e; /* Same as Navbar */
+  color: white;
+  font-family: 'Poppins', sans-serif;
+}
+
