@@ -230,9 +230,9 @@ app.get('/search', async (req, res) => {
 
   const options = {
     method: 'GET',
-    url: `https://google-search3.p.rapidapi.com/api/v1/search/q=${encodeURIComponent(query)}`,
+    url: 'https://google-search3.p.rapidapi.com/api/v1/search',
+    params: { q: query },
     headers: {
-      'X-User-Agent': 'desktop',
       'X-RapidAPI-Key': process.env.RAPIDAPI_KEY,
       'X-RapidAPI-Host': 'google-search3.p.rapidapi.com'
     }
