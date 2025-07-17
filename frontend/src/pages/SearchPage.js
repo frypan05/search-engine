@@ -11,6 +11,8 @@ function SearchPage() {
   const [results, setResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [hasSearched, setHasSearched] = useState(false);
+
   
   const location = useLocation();
   const navigate = useNavigate();
@@ -36,15 +38,16 @@ function SearchPage() {
     setError(null);
 
     try {
-      const res = await axios.get(`http://localhost:3001/search?q=${encodeURIComponent(searchQuery)}`);
-      console.log('Search results:', res.data);
-      setResults(res.data);
-    } catch (err) {
-      console.error('Search error:', err);
-      setError('Failed to fetch results. Please try again.');
-    } finally {
-      setIsLoading(false);
-    }
+        const res = await axios.get(`http://localhost:3001/search?q=${encodeURIComponent(searchQuery)}`);
+        console.log('Search results:', res.data);
+        setResults(res.data);
+      } catch (err) {
+        console.error('Search error:', err);
+        setError('Failed to fetch results. Please try again.');
+      } finally {
+        setIsLoading(false);
+        setHasSearched(true); // ✅ Mark that a search has been performed
+      }
   }, []);
 
   const handleNewSearch = useCallback((newQuery) => {
@@ -80,8 +83,8 @@ function SearchPage() {
       <div className="search-results-container">
         {isLoading && <div className="loading-indicator">Searching...</div>}
         {error && <div className="error-message">{error}</div>}
-        {!isLoading && !error && results.length === 0 && query && (
-          <div className="no-results">No results found for "{query}"</div>
+        {hasSearched && !isLoading && !error && results.length === 0 && (
+        <div className="no-results">No results found for "{query}"</div>
         )}
         <Results data={results} />
       </div>
