@@ -14,6 +14,7 @@ import './App.css';
 
 function HomePage({ query, setQuery, onSearch, isLoading, error, results }) {
   return (
+    
     <div className="home-container">
       <div className="search-content">
         <h1 className="logo">
