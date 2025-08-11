@@ -1,4 +1,4 @@
-import React, { useRef, useState} from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { FaMicrophone, FaCamera } from 'react-icons/fa';
 import './SearchBar.css';
 
@@ -7,15 +7,27 @@ function SearchBar({ query, setQuery, onSearch }) {
   const fileInputRef = useRef(null);
   const [inputValue, setInputValue] = useState(query || '');
 
+  // Update input value when query prop changes
+  useEffect(() => {
+    setInputValue(query || '');
+  }, [query]);
+
   const handleChange = (e) => {
     const value = e.target.value;
     setInputValue(value);
     setQuery(value); // Sync with parent
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (inputValue.trim()) {
+      onSearch(inputValue.trim());
+    }
+  };
+
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
-      onSearch();
+      handleSubmit(e);
     }
   };
 
@@ -30,19 +42,16 @@ function SearchBar({ query, setQuery, onSearch }) {
       recognitionRef.current = new SpeechRecognition();
       recognitionRef.current.continuous = false;
       recognitionRef.current.lang = 'en-US';
-
       recognitionRef.current.onresult = (event) => {
         const transcript = event.results[0][0].transcript;
         setInputValue(transcript);
         setQuery(transcript);
-        onSearch();
+        onSearch(transcript);
       };
-
       recognitionRef.current.onerror = (event) => {
         console.error('Speech recognition error:', event.error);
       };
     }
-
     recognitionRef.current.start();
   };
 
@@ -58,7 +67,7 @@ function SearchBar({ query, setQuery, onSearch }) {
   };
 
   return (
-    <div className="search-bar">
+    <form onSubmit={handleSubmit} className="search-bar">
       <input
         type="text"
         value={inputValue}
@@ -66,16 +75,14 @@ function SearchBar({ query, setQuery, onSearch }) {
         onKeyDown={handleKeyDown}
         placeholder="Search LeetSniff..."
         className="search-input"
+        autoComplete="off"
       />
-
-      <button onClick={handleVoiceSearch} className="icon-btn" title="Voice Search">
+      <button type="button" onClick={handleVoiceSearch} className="icon-btn" title="Voice Search">
         <FaMicrophone size={20} />
       </button>
-
-      <button onClick={handleImageIconClick} className="icon-btn" title="Search by Image">
+      <button type="button" onClick={handleImageIconClick} className="icon-btn" title="Search by Image">
         <FaCamera size={20} />
       </button>
-
       <input
         type="file"
         accept="image/*"
@@ -83,7 +90,7 @@ function SearchBar({ query, setQuery, onSearch }) {
         onChange={handleImageUpload}
         style={{ display: 'none' }}
       />
-    </div>
+    </form>
   );
 }
 

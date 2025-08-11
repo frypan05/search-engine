@@ -4,6 +4,7 @@ body {
   background-color: #0d1117; /* deep dark GitHub tone */
   color: #e6edf3;
   font-family: 'Poppins', 'Segoe UI', sans-serif;
+  overflow: hidden;
 }
 
 .App {
@@ -16,26 +17,41 @@ body {
   flex: 1;
   display: flex;
   justify-content: center;
-  align-items: center;
-  padding: 60px 20px;
+  align-items: flex-start; /* Shift upward */
+  padding: 60px 30px 20px; /* Increased top padding to shift content up */
+  min-height: 70vh; /* Ensure proper centering */
 }
 
 .search-content {
   max-width: 650px;
   width: 100%;
   text-align: center;
-  background-color: #161b22;
-  padding: 40px;
-  border-radius: 16px;
-  box-shadow: 0 0 18px rgba(0, 0, 0, 0.45);
+  background-color: transparent;
+  padding: 10px 20px;
+  border-radius: none;
+  box-shadow: none;
   transition: all 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center horizontally */
 }
 
 .logo {
-  font-size: 48px;
-  margin-bottom: 28px;
-  font-weight: 700;
+  font-size: 90px !important; 
+  margin-bottom: 30px;
+  font-weight: bold;
   letter-spacing: 1px;
+  text-decoration: none;
+  display: block;
+  user-select: none;
+  margin-top: 150px;
+}
+
+.logo-letter {
+  font-size: inherit;
+  font-weight: bold;
+  line-height: 1;
+  font-family: 'Arial', sans-serif;
 }
 
 .loading-indicator {
@@ -60,21 +76,26 @@ footer {
   font-size: 14px;
 }
 
-/* SearchBar Styling (assumed) */
+/* SearchBar Styling */
+.search-bar-container {
+  width: 100%;
+  max-width: 584px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
 .search-bar-container input {
   padding: 12px;
   width: 70%;
   border-radius: 10px;
   border: 1px solid #30363d;
+  background-color: #21262d;
   font-size: 16px;
-  background-color: #0d1117;
-  color: #c9d1d9;
+  margin-top: 5px;
+  color: #ffffff;
   outline: none;
   transition: border-color 0.2s ease;
-}
-
-.search-bar-container input:focus {
-  border-color: #58a6ff;
 }
 
 .search-bar-container button {
@@ -82,7 +103,7 @@ footer {
   margin-left: 10px;
   border-radius: 10px;
   border: none;
-  background-color: #238636;
+  background-color: #387076;
   color: white;
   cursor: pointer;
   font-weight: bold;
@@ -90,6 +111,345 @@ footer {
 }
 
 .search-bar-container button:hover {
-  background-color: #2ea043;
+  background-color: #43646d;
   transform: scale(1.05);
+}
+
+/* Search Results Page Styles */
+.search-results-page {
+  min-height: 100vh;
+  background-color: #0d1117;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Top navigation bar for search results */
+.search-results-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  border-bottom: 1px solid #30363d;
+  background-color: #0d1117;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.search-results-nav-left {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  max-width: 100%;
+}
+
+.search-results-nav-right {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.compact-logo {
+  font-size: 24px;
+  font-weight: bold;
+  margin-right: 40px;
+  text-decoration: none;
+  cursor: pointer;
+  min-width: 120px;
+  user-select: none;
+  transition: opacity 0.2s ease;
+  flex-shrink: 0;
+}
+
+.compact-logo:hover {
+  opacity: 0.8;
+}
+
+.compact-logo .logo-letter {
+  font-family: 'Arial', sans-serif;
+}
+
+/* Search bar container in results page */
+.search-results-nav-left .search-bar-container {
+  flex: 1;
+  max-width: 500px;
+  margin: 0;
+}
+
+/* User info and auth links */
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 14px;
+  color: #ffffff;
+}
+
+.logout-btn {
+  background-color: #B8A9FF; /* Pastel lavender */
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s ease;
+}
+
+.logout-btn:hover {
+  background-color: #A593FF; /* Slightly darker pastel lavender */
+}
+
+.auth-links {
+  display: flex;
+  gap: 15px;
+}
+
+.auth-link {
+  color: #FFB5B5; /* Pastel pink */
+  text-decoration: none;
+  font-size: 14px;
+  padding: 8px 16px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.auth-link:hover {
+  background-color: #f8f9fa;
+}
+
+/* Main search results area */
+.search-results-main {
+  flex: 1;
+  background-color: #0d1117;
+  padding: 20px 0;
+}
+
+.search-results-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Results info */
+.results-info {
+  color: #fafcff;
+  font-size: 14px;
+  margin-bottom: 30px;
+  padding-left: 0;
+}
+
+/* Loading states */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #B8E6B8; /* Pastel mint green */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+  color: #f8fafc;
+  font-size: 16px;
+}
+
+/* Error states */
+.error-container {
+  display: flex;
+  justify-content: center;
+  padding: 60px 20px;
+}
+
+.error-message {
+  background-color: #fef7f0;
+  border: 1px solid #fce8e6;
+  border-radius: 8px;
+  padding: 20px;
+  color: #d93025;
+  font-size: 14px;
+  max-width: 400px;
+  text-align: center;
+}
+
+/* No results state */
+.no-results {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.no-results-message {
+  font-size: 18px;
+  color: #ffffff;
+  margin-bottom: 10px;
+}
+
+.no-results-suggestions {
+  font-size: 14px;
+  color: #ffffff;
+}
+
+/* Search result links */
+.search-results-container a {
+  color: #B8A9FF !important; /* Pastel lavender */
+  text-decoration: none;
+}
+
+.search-results-container a:hover {
+  color: #A593FF !important; /* Slightly darker pastel lavender */
+  text-decoration: underline;
+}
+
+
+
+/* General link styles for the entire app */
+a {
+  color: #B8A9FF; /* Pastel lavender */
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: #A593FF; /* Slightly darker pastel lavender */
+  text-decoration: underline;
+}
+
+
+
+/* General search bar styles */
+.search-bar {
+  display: flex;
+  align-items: center;
+  max-width: 584px;
+  width: 100%;
+  margin: 0 auto;
+  border: 1px solid #30363d;
+  border-radius: 24px;
+  padding: 5px 8px 5px 16px;
+  background-color: #21262d;
+  box-shadow: 0 2px 5px 1px rgba(64,60,67,.16);
+  transition: box-shadow 0.2s ease;
+}
+
+.search-bar:hover {
+  box-shadow: 0 2px 8px 1px rgba(64,60,67,.24);
+}
+
+.search-bar:focus-within {
+  box-shadow: 0 2px 8px 1px rgba(64,60,67,.24);
+  border-color: #B8E6B8; /* Pastel mint green */
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 10px 8px;
+  font-size: 16px;
+  background: transparent;
+  color: #fdfeff;
+}
+
+.search-input::placeholder {
+  color: #7d8590;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  margin-left: 5px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  transition: background-color 0.2s ease;
+}
+
+.icon-btn:hover {
+  background-color: #30363d;
+  color: #e6edf3;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .search-results-navbar {
+    flex-direction: column;
+    padding: 15px 20px;
+    gap: 15px;
+  }
+  
+  .search-results-nav-left {
+    width: 100%;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+  }
+  
+  .compact-logo {
+    margin-right: 0;
+    font-size: 20px;
+    min-width: auto;
+  }
+  
+  .search-bar-container {
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  .search-results-nav-right {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .search-results-container {
+    padding: 0 15px;
+  }
+  
+  .logo {
+    font-size: 60px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .search-results-navbar {
+    padding: 10px 15px;
+  }
+  
+  .compact-logo {
+    font-size: 18px;
+  }
+  
+  .logo {
+    font-size: 50px !important;
+  }
+  
+  .search-bar {
+    padding: 5px 8px 5px 12px;
+  }
+  
+  .search-input {
+    font-size: 14px;
+  }
+  
+  .search-bar-container input {
+    width: 100%;
+  }
 }

@@ -12,7 +12,7 @@ router.get('/search', async (req, res) => {
     url: 'https://google-search74.p.rapidapi.com/',
     params: {
       query: query,
-      limit: 5,
+      limit: 15,
       related_keywords: 'true'
     },
     headers: {
