@@ -20,7 +20,7 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+  origin: process.env.FRONTEND_URL || 'https://search-engine-frontend-chi.vercel.app/',
   credentials: true
 }));
 
@@ -171,12 +171,12 @@ app.get('/test-api', async (req, res) => {
 app.get('/auth/github', passport.authenticate('github', { scope: ['user:email', 'read:user'] }));
 app.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/auth/failure', session: true }), (req, res) => {
   try {
-    const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3000';
+    const frontendUrl = process.env.FRONTEND_URL || 'https://search-engine-frontend-chi.vercel.app/';
     const userDataEncoded = encodeURIComponent(JSON.stringify(req.user));
     res.redirect(`${frontendUrl}/?auth=success&user=${userDataEncoded}`);
   } catch (error) {
     console.error('GitHub Callback Error:', error);
-    const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3000';
+    const frontendUrl = process.env.FRONTEND_URL || 'https://search-engine-frontend-chi.vercel.app/';
     res.redirect(`${frontendUrl}/?auth=error`);
   }
 });
@@ -185,18 +185,18 @@ app.get('/auth/github/callback', passport.authenticate('github', { failureRedire
 app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/auth/failure', session: true }), (req, res) => {
   try {
-    const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3000';
+    const frontendUrl = process.env.FRONTEND_URL || 'https://search-engine-frontend-chi.vercel.app/';
     const userDataEncoded = encodeURIComponent(JSON.stringify(req.user));
     res.redirect(`${frontendUrl}/?auth=success&user=${userDataEncoded}`);
   } catch (error) {
     console.error('Google Callback Error:', error);
-    const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3000';
+    const frontendUrl = process.env.FRONTEND_URL || 'https://search-engine-frontend-chi.vercel.app/';
     res.redirect(`${frontendUrl}/?auth=error`);
   }
 });
 
 app.get('/auth/failure', (req, res) => {
-  const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3000';
+  const frontendUrl = process.env.FRONTEND_URL || 'https://search-engine-frontend-chi.vercel.app/';
   res.redirect(`${frontendUrl}/?auth=error`);
 });
 
