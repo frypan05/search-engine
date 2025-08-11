@@ -34,11 +34,11 @@ const SignIn = () => {
   };
 
   const handleGithubSignIn = () => {
-    window.location.href = 'https://search-engine-sigma-opal.vercel.app/auth/github';
+    window.location.href = 'https://search-engine-frontend-chi.vercel.app/auth/github';
   };
 
   const handleGoogleSignIn = () => {
-    window.location.href = 'https://search-engine-sigma-opal.vercel.app/auth/google';
+    window.location.href = 'https://search-engine-frontend-chi.vercel.app/auth/google';
   };
 
   return (
