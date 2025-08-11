@@ -267,7 +267,7 @@ function AppContent() {
 
   useEffect(() => {
     if (!currentUser && isUserLoaded) {
-      axios.get('https://search-engine-frontend-chi.vercel.app/auth/user', { withCredentials: true })
+      axios.get('https://search-engine-sigma-opal.vercel.app/auth/user', { withCredentials: true })
         .then(res => {
           if (res.data?.user) {
             setCurrentUser(res.data.user);
@@ -280,7 +280,7 @@ function AppContent() {
 
   const handleLogout = useCallback(async () => {
     try {
-      await axios.post('https://search-engine-frontend-chi.vercel.app/auth/logout', {}, { withCredentials: true });
+      await axios.post('https://search-engine-sigma-opal.vercel.app/auth/logout', {}, { withCredentials: true });
     } catch {}
     setCurrentUser(null);
     localStorage.removeItem('user');
