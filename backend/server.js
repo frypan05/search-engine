@@ -1,3 +1,5 @@
+// backend/server.js
+
 const express = require('express');
 const passport = require('passport');
 const GitHubStrategy = require('passport-github2').Strategy;
@@ -20,7 +22,7 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'https://search-engine-frontend-chi.vercel.app/',
+  origin: process.env.FRONTEND_URL || 'https://search-engine-frontend-chi.vercel.app',
   credentials: true
 }));
 
@@ -43,7 +45,7 @@ app.use(passport.session());
 passport.use(new GitHubStrategy({
   clientID: process.env.GITHUB_CLIENT_ID,
   clientSecret: process.env.GITHUB_CLIENT_SECRET,
-  callbackURL: "http://localhost:3001/auth/github/callback"
+  callbackURL: "https://search-engine-sigma-opal.vercel.app/auth/github/callback"
 }, async (accessToken, refreshToken, profile, done) => {
   try {
     const user = {
@@ -73,7 +75,7 @@ passport.use(new GitHubStrategy({
 passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  callbackURL: "http://localhost:3001/auth/google/callback"
+  callbackURL: "https://search-engine-sigma-opal.vercel.app/auth/google/callback"
 }, async (accessToken, refreshToken, profile, done) => {
   try {
     const user = {
